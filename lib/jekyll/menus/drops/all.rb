@@ -1,6 +1,6 @@
 # Frozen-string-literal: true
+
 # Copyright: 2015 Forestry.io - MIT License
-# Encoding: utf-8
 
 module Jekyll
   class Menus
@@ -10,15 +10,9 @@ module Jekyll
           @menus = menus
         end
 
-        #
-
-        def find
-          to_a.find do |menu|
-            yield menu
-          end
+        def find(&block)
+          to_a.find(&block)
         end
-
-        #
 
         def to_a
           @menus.keys.map do |identifier|
@@ -28,21 +22,14 @@ module Jekyll
           end
         end
 
-        #
-
-        def each
-          to_a.each do |drop|
-            yield drop
-          end
+        def each(&block)
+          to_a.each(&block)
         end
-
-        #
 
         def [](key)
           if @menus.key?(key)
             then Menu.new(@menus[key],
-              key, self
-            )
+                          key, self)
           end
         end
       end
